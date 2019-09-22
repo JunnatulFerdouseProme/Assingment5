@@ -1,10 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,20 +13,17 @@ namespace Assingment5
 {
     public partial class studentForm : Form
     {
-       
-
-List<int> studentID = new List<int> { };
+        List<int> studentID = new List<int> { };
         List<string> studentName = new List<string> { };
         List<string> mobile = new List<string> { };
         List<int> age = new List<int> { };
         List<string> address = new List<string> { };
         List<double> gpa = new List<double> { };
-        public Student()
+        public studentForm()
         {
             InitializeComponent();
         }
-
-        private void AddButton_Click(object sender, EventArgs e)
+        private void addButton_Click_1(object sender, EventArgs e)
         {
             if (String.IsNullOrEmpty(idTextBox.Text))
             {
@@ -57,6 +55,11 @@ List<int> studentID = new List<int> { };
 
                 MessageBox.Show("Please enter Mobile No and Mobile No must be in 11 character!");
                 return;
+            }
+            if(mobile.Contains((mobileTextBox.Text))
+            {
+                MessageBox.Show("This mobile number already exits");
+
             }
 
             if (String.IsNullOrEmpty(gpaTextBox.Text))
@@ -90,7 +93,9 @@ List<int> studentID = new List<int> { };
             ageTextBox.Text = "";
             addressTextBox.Text = "";
             gpaTextBox.Text = "";
+
         }
+
 
         public void AddStudent(int id, string Name, string Mobile, int Age, string Address, double Gpa)
         {
@@ -103,79 +108,21 @@ List<int> studentID = new List<int> { };
 
         }
 
-        private void SearchButton_Click(object sender, EventArgs e)
-        {
-            if (idRadioButton.Checked == true)
-            {
-                if (studentID.Contains(Convert.ToInt32(idTextBox.Text)))
-                {
-                    int index = studentID.IndexOf(Convert.ToInt32(idTextBox.Text));
-                    MessageBox.Show("ID: " + studentID[index] + "\n" + "Name: " + studentName[index] + "\n" +
-                "Mobile No: " + mobile[index] + "\n" + "Age: " + age[index] + "\n" + "Address: "
-                + address[index] + "\n" + "GPA" + gpa[index] + "\n");
-
-                    richTextBox.Text = ("ID: " + studentID[index] + "\n" + "Name: " + studentName[index] + "\n" +
-                    "Mobile No: " + mobile[index] + "\n" + "Age: " + age[index] + "\n" + "Address: "
-                    + address[index] + "\n" + "GPA" + gpa[index] + "\n");
-
-                }
-            }
-
-            else if (nameRadioButton.Checked == true)
-            {
-                if (studentName.Contains(nameTextBox.Text))
-                {
-                    int index = studentName.IndexOf(nameTextBox.Text);
-                    MessageBox.Show("ID: " + studentID[index] + "\n" + "Name: " + studentName[index] + "\n" +
-                "Mobile No: " + mobile[index] + "\n" + "Age: " + age[index] + "\n" + "Address: "
-                + address[index] + "\n" + "GPA" + gpa[index] + "\n");
-
-                    richTextBox.Text = ("ID: " + studentID[index] + "\n" + "Name: " + studentName[index] + "\n" +
-                    "Mobile No: " + mobile[index] + "\n" + "Age: " + age[index] + "\n" + "Address: "
-                    + address[index] + "\n" + "GPA" + gpa[index] + "\n");
-
-                }
+   
 
 
-            }
+          
 
-
-            else if (mobileRadioButton.Checked == true)
-            {
-                if (mobile.Contains(mobileTextBox.Text))
-                {
-                    int index = mobile.IndexOf(mobileTextBox.Text);
-                    MessageBox.Show("ID: " + studentID[index] + "\n" + "Name: " + studentName[index] + "\n" +
-                "Mobile No: " + mobile[index] + "\n" + "Age: " + age[index] + "\n" + "Address: "
-                + address[index] + "\n" + "GPA" + gpa[index] + "\n");
-
-                    richTextBox.Text = ("ID: " + studentID[index] + "\n" + "Name: " + studentName[index] + "\n" +
-                    "Mobile No: " + mobile[index] + "\n" + "Age: " + age[index] + "\n" + "Address: "
-                    + address[index] + "\n" + "GPA" + gpa[index] + "\n");
-
-
-
-                }
-
-            }
-            else
-            {
-                MessageBox.Show("Data not found");
-            }
-            ClearList();
-
-        }
-
-        private void ShowButton_Click(object sender, EventArgs e)
-        {
-            showStudent();
-            idTextBox.Text = "";
-            nameTextBox.Text = "";
-            mobileTextBox.Text = "";
-            ageTextBox.Text = "";
-            addressTextBox.Text = "";
-            gpaTextBox.Text = "";
-        }
+        //private void ShowButton_Click(object sender, EventArgs e)
+        //{
+        //    showStudent();
+        //    //idTextBox.Text = "";
+        //    //nameTextBox.Text = "";
+        //    //mobileTextBox.Text = "";
+        //    //ageTextBox.Text = "";
+        //    //addressTextBox.Text = "";
+        //    //gpaTextBox.Text = "";
+        //}
 
         public void showStudent()
         {
@@ -195,12 +142,12 @@ List<int> studentID = new List<int> { };
             var maxNumberName = gpa.IndexOf(gpa.Max());
             var minNumberName = gpa.IndexOf(gpa.Min());
 
-            maxNameTextBox.Text = studentName[maxNumberName];
+            nameMaxTextBox.Text = studentName[maxNumberName];
             minNameTextBox.Text = studentName[minNumberName];
             maxTextBox.Text = max.ToString();
             minTextBox.Text = min.ToString();
             totalTextBox.Text = sum.ToString();
-            avarageTextBox.Text = average.ToString();
+            averegeTextBox.Text = average.ToString();
 
         }
         private void ClearList()
@@ -212,6 +159,71 @@ List<int> studentID = new List<int> { };
             addressTextBox.Clear();
             gpaTextBox.Clear();
         }
-    }
+
+        private void searchButton_Click_1(object sender, EventArgs e)
+        {
+            if (idRadioButton.Checked == true)
+            {
+                richTextBox.Text = "";
+                for (int i = 0; i <studentID.Count(); i++)
+                {
+                    if (idTextBox.Text.Equals(studentID[i]))
+                    {
+                        richTextBox.Text = "ID: " + studentID[i] + "\n" + "Name: " + studentName[i] + "\n" + "Mobile: " + mobile[i] + "\n" + "Age: " + age[i] + "\n" +
+                       "Address: " + address[i] + "\n" + "GPA: " + gpa[i];
+
+                    }
+                    idTextBox.Text = "";
+                    ClearList();
+                }
+            }
+
+            else if (nameRadioButton.Checked == true)
+            {
+                richTextBox.Text = "";
+                for (int i = 0; i < studentName.Count(); i++)
+                {
+                    if (nameTextBox.Text.Equals(studentName[i]))
+                    {
+                        richTextBox.Text = "ID: " + studentID[i] + "\n" + "Name: " + studentName[i] + "\n" + "Mobile: " + mobile[i] + "\n" + "Age: " + age[i] + "\n" +
+                      "Address: " + address[i] + "\n" + "GPA: " + gpa[i];
+                    }
+                    nameTextBox.Text = "";
+                    ClearList();
+                }
+            }
+
+            else if (mobileRadioButton.Checked == true)
+            {
+                richTextBox.Text = "";
+                for (int i = 0; i < mobile.Count(); i++)
+                {
+                    if (mobileTextBox.Text.Equals(mobile[i]))
+                    {
+                        richTextBox.Text = "ID: " + studentID[i] + "\n" + "Name: " +studentName[i] + "\n" + "Mobile: " + mobile[i] + "\n" + "Age: " + age[i] + "\n" +
+                    "Address: " + address[i] + "\n" + "GPA: " + gpa[i];
+
+                    }
+                    mobileTextBox.Text = "";
+                    ClearList();
+                }
+
+            }
+        }
+
+            private void showButton_Click(object sender, EventArgs e)
+            {
+            showStudent();
+            idTextBox.Text = "";
+            nameTextBox.Text = "";
+            mobileTextBox.Text = "";
+            ageTextBox.Text = "";
+            addressTextBox.Text = "";
+            gpaTextBox.Text = "";
+
+            }
+
+
+     }
 }
 
